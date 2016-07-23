@@ -1,57 +1,75 @@
-//
-//  ViewController.swift
-//  ExaminationApp
-//
-//  Created by 浅野　宏明 on 2016/07/23.
-//  Copyright © 2016年 akylab. All rights reserved.
-//
+
 
 import UIKit
 
-class ViewController: UIViewController {
-    /// 演算子のリスト
-    private let operatorList = [
-        "+",
-        "-",
-    ]
+class ViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource {
     
-    /// 選択中の演算子
-    private var selectedOperator = '+'
+    @IBOutlet weak var hidari: UITextField!
+    @IBOutlet weak var migi: UITextField!
+    @IBOutlet weak var fourArithmetic: UIPickerView!
+    @IBOutlet weak var result: UILabel!
     
-    /// 値1の入力フィールド
-    @IBOutlet private var value1: UITextField!
-    /// 値2の入力フィールド
-    @IBOutlet private var value2: UITextField!
+    var option = ["+","-","×","÷"]
     
-    /// 計算実行ボタン押下時の処理
-    @IBAction private func calcurate(_: UIButton) {
-        let result = Int(value1.text!)! + Int(value2.text)
+    @IBAction func calculate(sender: AnyObject) {
         
-        // TODO: 計算結果ラベルの値を書き換えるようにする
-        print("result: \(result)")
+        let GetHidariNum : Int = Int(hidari.text!)!
+        let GetMigiNum: Int = Int(migi.text!)!
+        
+        //1列目の選択されている値のインデックス番号を取得する
+        switch fourArithmetic.selectedRowInComponent(0) {
+        case 0:
+            result.text = String(GetHidariNum + GetMigiNum)
+        case 1:
+            result.text = String(GetHidariNum - GetMigiNum)
+        case 2:
+            result.text = String(GetHidariNum * GetMigiNum)
+        case 3:
+            result.text = String(GetHidariNum / GetMigiNum)
+        default:
+            break
+            
+        }
+        
     }
-}
-
-extension ViewController: UIPickerViewDataSource {
+    
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        
+        //PickerViewの初期値
+        //fourArithmetic.selectRow(1, inComponent: 0, animated: false)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    
+    /* PickerView関数 */
+    //pickerに表示する列数を返す
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        // ピッカーのコンポーネントの数を返す
-        return 1
+        
+        return 1  //1列表示
+        
     }
-    
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        // コンポーネント毎の行数を返す
-        return 2
-    }
-}
 
-extension ViewController: UIPickerViewDelegate {
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        // 行のラベルとなる文字列を返す
-        return operatorList[row]
+    //pickerに表示する行数を返す
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        
+        return option.count;  // 選択肢の数
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        // 行を選択した時のアクションを定義
-        // TODO: 選択した演算子で selectedOperator を上書きする
+    
+    //PickerViewへの文字列の表示
+    func PickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+        
+        return option[row]  //文字の表示
     }
+    
+    
+    
 }
