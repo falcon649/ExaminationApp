@@ -19,16 +19,19 @@ class ViewController: UIViewController {
     private var selectedOperator = "+"
     
     /// 値1の入力フィールド
-    @IBOutlet private var value1: UITextField!
+    @IBOutlet private weak var value1: UITextField!
     /// 値2の入力フィールド
-    @IBOutlet private var value2: UITextField!
-    
+    @IBOutlet private weak var value2: UITextField!
+    /// 計算結果を出力するラベル
+    @IBOutlet private weak var resultLabel: UILabel!
     /// 計算実行ボタン押下時の処理
     @IBAction private func calcurate(_: UIButton) {
         let result = Int(value1.text!)! + Int(value2.text!)!
         
-        // TODO: 計算結果ラベルの値を書き換えるようにする
         print("result: \(result)")
+        
+        // 結果表示用ラベルに出力
+        resultLabel.text = "\(result)"
     }
 }
 
