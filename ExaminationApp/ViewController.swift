@@ -37,8 +37,8 @@ class ViewController: UIViewController {
     /// 計算実行ボタン押下時の処理
     private func calcurate() {
         // selectedOperator の値に合わせて演算
-        let val1 = Int(value1.text!)!
-        let val2 = Int(value2.text!)!
+        let val1 = Int(value1.text ?? "") ?? 0
+        let val2 = Int(value2.text ?? "") ?? 0
         
         let result: Int
         switch selectedOperator {
