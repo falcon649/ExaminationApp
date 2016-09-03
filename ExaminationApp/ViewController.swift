@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     private let operatorList = [
         "+",
         "-",
+        "×",
+        "÷",
     ]
     
     /// 選択中の演算子
@@ -26,7 +28,20 @@ class ViewController: UIViewController {
     @IBOutlet private weak var resultLabel: UILabel!
     /// 計算実行ボタン押下時の処理
     @IBAction private func calcurate(_: UIButton) {
-        let result = Int(value1.text!)! + Int(value2.text!)!
+        // selectedOperator の値に合わせて演算
+        let result: Int
+        switch selectedOperator {
+        case "+":
+            result = Int(value1.text!)! + Int(value2.text!)!
+        case "-":
+            result = Int(value1.text!)! - Int(value2.text!)!
+        case "×":
+            result = Int(value1.text!)! * Int(value2.text!)!
+        case "÷":
+            result = Int(value1.text!)! / Int(value2.text!)!
+        default:
+            result = 0
+        }
         
         print("result: \(result)")
         
@@ -43,7 +58,7 @@ extension ViewController: UIPickerViewDataSource {
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         // コンポーネント毎の行数を返す
-        return 2
+        return operatorList.count
     }
 }
 
@@ -55,6 +70,6 @@ extension ViewController: UIPickerViewDelegate {
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // 行を選択した時のアクションを定義
-        // TODO: 選択した演算子で selectedOperator を上書きする
+        selectedOperator = operatorList[row]
     }
 }
