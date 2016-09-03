@@ -8,17 +8,25 @@
 
 import UIKit
 
+/// 演算子
+enum Operator: String {
+    case Plus  = "+"
+    case Minus = "-"
+    case Multi = "×"
+    case Div   = "÷"
+}
+
 class ViewController: UIViewController {
     /// 演算子のリスト
-    private let operatorList = [
-        "+",
-        "-",
-        "×",
-        "÷",
+    private let operatorList: [Operator] = [
+        .Plus,
+        .Minus,
+        .Multi,
+        .Div
     ]
     
     /// 選択中の演算子
-    private var selectedOperator = "+"
+    private var selectedOperator = Operator.Plus
     
     /// 値1の入力フィールド
     @IBOutlet private weak var value1: UITextField!
@@ -31,16 +39,14 @@ class ViewController: UIViewController {
         // selectedOperator の値に合わせて演算
         let result: Int
         switch selectedOperator {
-        case "+":
+        case .Plus:
             result = Int(value1.text!)! + Int(value2.text!)!
-        case "-":
+        case .Minus:
             result = Int(value1.text!)! - Int(value2.text!)!
-        case "×":
+        case .Multi:
             result = Int(value1.text!)! * Int(value2.text!)!
-        case "÷":
+        case .Div:
             result = Int(value1.text!)! / Int(value2.text!)!
-        default:
-            result = 0
         }
         
         print("result: \(result)")
@@ -65,7 +71,7 @@ extension ViewController: UIPickerViewDataSource {
 extension ViewController: UIPickerViewDelegate {
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         // 行のラベルとなる文字列を返す
-        return operatorList[row]
+        return operatorList[row].rawValue
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
