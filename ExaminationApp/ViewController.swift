@@ -35,9 +35,8 @@ class ViewController: UIViewController {
     /// 計算結果を出力するラベル
     @IBOutlet private weak var resultLabel: UILabel!
     /// 計算実行ボタン押下時の処理
-    @IBAction private func calcurate(_: UIButton) {
+    private func calcurate() {
         // selectedOperator の値に合わせて演算
-        
         let val1 = Int(value1.text!)!
         let val2 = Int(value2.text!)!
         
@@ -81,5 +80,12 @@ extension ViewController: UIPickerViewDelegate {
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // 行を選択した時のアクションを定義
         selectedOperator = operatorList[row]
+        calcurate()
+    }
+}
+
+extension ViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(textField: UITextField) {
+        calcurate()
     }
 }
