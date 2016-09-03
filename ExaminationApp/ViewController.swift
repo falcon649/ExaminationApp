@@ -37,16 +37,20 @@ class ViewController: UIViewController {
     /// 計算実行ボタン押下時の処理
     @IBAction private func calcurate(_: UIButton) {
         // selectedOperator の値に合わせて演算
+        
+        let val1 = Int(value1.text!)!
+        let val2 = Int(value2.text!)!
+        
         let result: Int
         switch selectedOperator {
         case .Plus:
-            result = Int(value1.text!)! + Int(value2.text!)!
+            result = val1 + val2
         case .Minus:
-            result = Int(value1.text!)! - Int(value2.text!)!
+            result = val1 - val2
         case .Multi:
-            result = Int(value1.text!)! * Int(value2.text!)!
+            result = val1 * val2
         case .Div:
-            result = Int(value1.text!)! / Int(value2.text!)!
+            result = val1 / val2
         }
         
         print("result: \(result)")
