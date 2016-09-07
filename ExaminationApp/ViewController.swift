@@ -65,7 +65,7 @@ class ViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSou
     
     
     //PickerViewへの文字列の表示
-    func PickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         return option[row]  //文字の表示
     }
